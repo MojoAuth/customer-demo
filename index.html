@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div id="mojoauth-passwordless-form"></div>
+    <div id="user-profile"></div>
+    <script>
+        config={
+            language: "en", 
+            redirect_url: "/profile",
+            source: source= [ {type:'email',feature:'magiclink'}],
+            email_input_id:"email-input-id",
+        }
+
+        const mojoauth = new MojoAuth( "b4dfd4bf-acb5-4f05-a430-245a982bb04a", config);
+        mojoauth.signIn().then( response => {
+            console.log("reached here")
+            localStorage.setItem("userTokenfido", response.oauth.access_token)
+            localStorage.setItem("userEmailfido", response.user.identifier)     
+            console.log( response )
+            window.location.replace("/profile")
+        } ); 
+    </script>
+</html>

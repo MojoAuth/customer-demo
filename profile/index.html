@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src=" https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
+	<link rel="stylesheet" href="../index.css">
+</head>
+
+<body style="display: flex; flex-direction:column; align-items: center">
+	<div class='container'>
+		<h1 class='main-title'>MojoAuth Demo</h1>
+		<div class="login-container" id="loading-container">
+			<div class="loader"></div>
+		</div>
+		<div class='login-container' id="content-container" style="display:none">
+			<h2 style="margin-top: 70px;" id="email-container">You are not logged in</h2>
+			<h3 id="h3-container">Please Login to continue</h3>
+			<button class='input-button' id="login-button-container">Login</button>
+			<button class='input-button' style="display:none" id="logout-button-container">Logout</button>
+			<p class='footer'>By MojoAuth</p>
+		</div>
+	</div>
+<script>
+	const mojoauth = new MojoAuth("b4dfd4bf-acb5-4f05-a430-245a982bb04a");
+
+
+	mojoauth.signInWithStateID().then( response => {
+		localStorage.setItem("userEmailfido", response.user.identifier)
+		localStorage.setItem("userTokenfido", response.oauth.access_token)
+		document.getElementById('loading-container').style.display="none"
+		document.getElementById('content-container').style.display="block"
+		console.log( response )
+		localStorage.getItem("userTokenfido") && localStorage.getItem("userEmailfido")? (document.getElementById('loading-container').style.display="none",document.getElementById('content-container').style.display="block"): null;
+		localStorage.getItem("userTokenfido")?document.getElementById('h3-container').innerText="You have successfully logged in":document.getElementById('h3-container').innerText="Please Login to continue"
+		localStorage.getItem("userEmailfido")?document.getElementById("email-container").innerText=`Welcome ${localStorage.getItem("userEmailfido")}`:document.getElementById("email-container").innerText="You are not logged in"
+		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").innerText="Logout": document.getElementById("login-button-container").innerText="Login";
+		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").style.display="none":document.getElementById("login-button-container").style.display="block";
+		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").innerText="Logout": document.getElementById("logout-button-container").innerText="Login";
+		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").style.display="block":document.getElementById("logout-button-container").style.display="none";
+
+		document.getElementById("logout-button-container").onclick=()=>{localStorage.removeItem("userTokenfido"); localStorage.removeItem("userEmailfido"); window.location.href="/" }
+		document.getElementById("login-button-container").onclick=()=>{ window.location.href="/" }
+		} ).catch((e)=>{
+			console.log(e);
+			document.getElementById('loading-container').style.display="none"
+			document.getElementById('content-container').style.display="block"
+		})
+
+		if(!window.location.search.includes('state_id')){
+			console.log(document.getElementById('loading-container'))
+			document.getElementById('loading-container').style.display="none"
+			document.getElementById('content-container').style.display="block"
+		}
+
+		localStorage.getItem("userTokenfido") && localStorage.getItem("userEmailfido")? (document.getElementById('loading-container').style.display="none",document.getElementById('content-container').style.display="block"): null;
+			localStorage.getItem("userTokenfido")?document.getElementById('h3-container').innerText="You have successfully logged in":document.getElementById('h3-container').innerText="Please Login to continue"
+		localStorage.getItem("userEmailfido")?document.getElementById("email-container").innerText=`Welcome ${localStorage.getItem("userEmailfido")}`:document.getElementById("email-container").innerText="You are not logged in"
+		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").innerText="Logout": document.getElementById("login-button-container").innerText="Login";
+		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").style.display="none":document.getElementById("login-button-container").style.display="block";
+		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").innerText="Logout": document.getElementById("logout-button-container").innerText="Login";
+		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").style.display="block":document.getElementById("logout-button-container").style.display="none";
+
+		document.getElementById("logout-button-container").onclick=()=>{localStorage.removeItem("userTokenfido"); localStorage.removeItem("userEmailfido"); window.location.href="/" }
+		document.getElementById("login-button-container").onclick=()=>{ window.location.href="/" }
+</script>
+</body>
