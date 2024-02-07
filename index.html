@@ -20,8 +20,8 @@
         const mojoauth = new MojoAuth( "b4dfd4bf-acb5-4f05-a430-245a982bb04a", config);
         mojoauth.signIn().then( response => {
             console.log("reached here")
-            localStorage.setItem("userTokenfido", response.oauth.access_token)
-            localStorage.setItem("userEmailfido", response.user.identifier)     
+            sessionStorage.setItem("access_token", response.oauth.access_token)
+            sessionStorage.setItem("identifier", response.user.identifier)     
             console.log( response )
             window.location.replace("/profile")
         } ); 

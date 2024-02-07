@@ -1,65 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<script src=" https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
-	<link rel="stylesheet" href="../index.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+
+    <title>Form</title>
+
+    <script charset="UTF-8" src="https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
 </head>
+<body onload="checkSession()">
+<section class="_form_05">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="_form-05-box">
+                        <div>
+                            <div class="form-05-box-a">
+                                <div class="_form_05_logo">
+                                    <h2 style="color: #6efc6e;">Authentication Successful</h2>
+                                    <p id="tok" style="word-wrap: break-word; display: inline;"></p>
+                                    <button class="logoutbutton _btn_04" style="display: block; margin-top: -5%;" onclick="clearSession()">Logout</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="_form_05_logo">
+                                <button class="_btn_04" onclick="addPassKey()">
+                                    Create a passkey
+                                </button>
+                            </div>
+                        </div>
 
-<body style="display: flex; flex-direction:column; align-items: center">
-	<div class='container'>
-		<h1 class='main-title'>MojoAuth Demo</h1>
-		<div class="login-container" id="loading-container">
-			<div class="loader"></div>
-		</div>
-		<div class='login-container' id="content-container" style="display:none">
-			<h2 style="margin-top: 70px;" id="email-container">You are not logged in</h2>
-			<h3 id="h3-container">Please Login to continue</h3>
-			<button class='input-button' id="login-button-container">Login</button>
-			<button class='input-button' style="display:none" id="logout-button-container">Logout</button>
-			<p class='footer'>By MojoAuth</p>
-		</div>
-	</div>
-<script>
-	const mojoauth = new MojoAuth("b4dfd4bf-acb5-4f05-a430-245a982bb04a");
-
-
-	mojoauth.signInWithStateID().then( response => {
-		localStorage.setItem("userEmailfido", response.user.identifier)
-		localStorage.setItem("userTokenfido", response.oauth.access_token)
-		document.getElementById('loading-container').style.display="none"
-		document.getElementById('content-container').style.display="block"
-		console.log( response )
-		localStorage.getItem("userTokenfido") && localStorage.getItem("userEmailfido")? (document.getElementById('loading-container').style.display="none",document.getElementById('content-container').style.display="block"): null;
-		localStorage.getItem("userTokenfido")?document.getElementById('h3-container').innerText="You have successfully logged in":document.getElementById('h3-container').innerText="Please Login to continue"
-		localStorage.getItem("userEmailfido")?document.getElementById("email-container").innerText=`Welcome ${localStorage.getItem("userEmailfido")}`:document.getElementById("email-container").innerText="You are not logged in"
-		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").innerText="Logout": document.getElementById("login-button-container").innerText="Login";
-		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").style.display="none":document.getElementById("login-button-container").style.display="block";
-		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").innerText="Logout": document.getElementById("logout-button-container").innerText="Login";
-		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").style.display="block":document.getElementById("logout-button-container").style.display="none";
-
-		document.getElementById("logout-button-container").onclick=()=>{localStorage.removeItem("userTokenfido"); localStorage.removeItem("userEmailfido"); window.location.href="/" }
-		document.getElementById("login-button-container").onclick=()=>{ window.location.href="/" }
-		} ).catch((e)=>{
-			console.log(e);
-			document.getElementById('loading-container').style.display="none"
-			document.getElementById('content-container').style.display="block"
-		})
-
-		if(!window.location.search.includes('state_id')){
-			console.log(document.getElementById('loading-container'))
-			document.getElementById('loading-container').style.display="none"
-			document.getElementById('content-container').style.display="block"
-		}
-
-		localStorage.getItem("userTokenfido") && localStorage.getItem("userEmailfido")? (document.getElementById('loading-container').style.display="none",document.getElementById('content-container').style.display="block"): null;
-			localStorage.getItem("userTokenfido")?document.getElementById('h3-container').innerText="You have successfully logged in":document.getElementById('h3-container').innerText="Please Login to continue"
-		localStorage.getItem("userEmailfido")?document.getElementById("email-container").innerText=`Welcome ${localStorage.getItem("userEmailfido")}`:document.getElementById("email-container").innerText="You are not logged in"
-		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").innerText="Logout": document.getElementById("login-button-container").innerText="Login";
-		localStorage.getItem("userTokenfido")?document.getElementById("login-button-container").style.display="none":document.getElementById("login-button-container").style.display="block";
-		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").innerText="Logout": document.getElementById("logout-button-container").innerText="Login";
-		localStorage.getItem("userTokenfido")?document.getElementById("logout-button-container").style.display="block":document.getElementById("logout-button-container").style.display="none";
-
-		document.getElementById("logout-button-container").onclick=()=>{localStorage.removeItem("userTokenfido"); localStorage.removeItem("userEmailfido"); window.location.href="/" }
-		document.getElementById("login-button-container").onclick=()=>{ window.location.href="/" }
-</script>
+                        <div class="table">
+                        <table id="tab">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Last Used At</th>
+                                <th>Action</th>
+                            </tr>
+                            
+                        </table>
+                        <div id="nodata" style="text-align: center;">
+                                
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
+</html>
+
+<script>
+    const accessToken = sessionStorage.getItem("access_token");
+    const identifier = sessionStorage.getItem("identifier");
+    console.log(accessToken)
+    // document.getElementById("tok").innerHTML = accessToken;
+    document.getElementById("tok").innerHTML = identifier;
+
+    const mojoauth = new MojoAuth("b4dfd4bf-acb5-4f05-a430-245a982bb04a");
+
+    function checkSession() {
+        if (!sessionStorage.getItem("access_token") || !sessionStorage.getItem("identifier")){
+            window.location.href="/"
+        }
+    }
+
+    mojoauth.getPasskeyCredentials(accessToken).then(response => {
+        console.log(response);
+        if (response.length > 0) {
+            for (let i = 0; i < response.length; i++) {
+                const element = response[i];
+
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.appendChild(document.createTextNode(element.id.substr(element.id.length - 6)))
+                tr.appendChild(td);
+
+                const td2 = document.createElement('td');
+                const name = element.name ? element.name : `passkey-${element.public_key.substr(element.public_key.length - 6)}`;
+                td2.appendChild(document.createTextNode(name));
+                tr.appendChild(td2);
+
+                const td3 = document.createElement('td');
+                td3.appendChild(document.createTextNode(element.last_used_at))
+                tr.appendChild(td3);
+
+                const td4 = document.createElement('td');
+                const renameBtn = document.createElement("BUTTON");
+                renameBtn.appendChild(document.createTextNode("Rename"));
+                renameBtn.setAttribute("onclick", "handleRenameCred('" + element.id + "');");
+                renameBtn.setAttribute("class", "rename");
+
+                const deleteBtn = document.createElement("BUTTON");
+                deleteBtn.appendChild(document.createTextNode("Delete"));
+                deleteBtn.setAttribute("onclick", "handleDeleteCred('" + element.id + "');");
+                deleteBtn.setAttribute("class", "delete");
+
+                td4.appendChild(renameBtn);
+                td4.appendChild(deleteBtn);
+                tr.appendChild(td4);
+
+                document.getElementById("tab").appendChild(tr);
+            }
+        }
+        else {
+            document.getElementById("nodata").innerHTML = "No Passkey Found";
+        }
+    });
+
+    function addPassKey() {
+        mojoauth.registerPasskey(identifier, accessToken).then(response => {
+            console.log(response);
+        });
+    }
+
+    function clearSession() {
+        sessionStorage.removeItem("access_token"); 
+        sessionStorage.removeItem("identifier"); 
+        window.location.href="/"
+    }
+
+    function handleRenameCred(id) {
+        const resp = window.prompt("Please enter name:")
+        if (resp) {
+            mojoauth.updatePasskeyCredential(id, accessToken, {name: resp}).then(response => {
+                console.log(response);
+                window.location.reload();
+            });
+        }
+    }
+
+    function handleDeleteCred(id) {
+        if (confirm("Confirm Deletion!") === true) {
+            mojoauth.deletePasskeyCredential(id, accessToken).then(response => {
+                window.alert(response);
+                window.location.reload();
+            });
+        }
+    }
+</script>
