@@ -24,9 +24,9 @@
                         <div>
                             <div class="form-05-box-a">
                                 <div class="_form_05_logo">
-                                    <h2 style="color: #6efc6e;">Authentication Successful</h2>
+                                    <h2 style="color: #0fd00f; font-size: 25px;">Authentication Successful</h2>
                                     <p id="tok" style="word-wrap: break-word; display: inline;"></p>
-                                    <button class="logoutbutton _btn_04" style="display: block; margin-top: -5%;" onclick="clearSession()">Logout</button>
+                                    <button class="logoutbutton _btn_04" style="display: block; margin-top: -5%; background-color: #f1416c;" onclick="clearSession()">Logout</button>
                                 </div>
                                 
                             </div>
@@ -63,6 +63,8 @@
 </html>
 
 <script>
+
+    
     const accessToken = sessionStorage.getItem("access_token");
     const identifier = sessionStorage.getItem("identifier");
     console.log(accessToken)
