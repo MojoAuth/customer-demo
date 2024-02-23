@@ -13,7 +13,7 @@
 
     <title>MojoAuth Demo | Secure and Delightful Passwordless Login Solution</title>
 
-    <script charset="UTF-8" src="https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
+    <script charset="UTF-8" src="https://devmicrocenter.mojoauth.com/cdn/js/mojoauth.min.js"></script>
 </head>
 <body onload="checkSession()">
 <section class="_form_05">
@@ -71,7 +71,7 @@
     // document.getElementById("tok").innerHTML = accessToken;
     document.getElementById("tok").innerHTML = identifier;
 
-    const mojoauth = new MojoAuth("b4dfd4bf-acb5-4f05-a430-245a982bb04a");
+    const mojoauth = new MojoAuth("test-d00a21fd-d46e-46ed-b4ed-b80b20b4a4f6");
 
     function checkSession() {
         if (!sessionStorage.getItem("access_token") || !sessionStorage.getItem("identifier")){

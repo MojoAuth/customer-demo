@@ -2,7 +2,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://cdn.mojoauth.com/js/mojoauth.min.js"></script>
+    <script src="https://devmicrocenter.mojoauth.com/cdn/js/mojoauth.min.js"></script>
     <link rel="stylesheet" href="./index.css">
     <title>MojoAuth Demo | Secure and Delightful Passwordless Login Solution</title>
     <link rel="icon" href="https://mojoauth.com/favicon.ico" />
@@ -19,7 +19,7 @@
             email_input_id:"email-input-id",
         }
 
-        const mojoauth = new MojoAuth( "b4dfd4bf-acb5-4f05-a430-245a982bb04a", config);
+        const mojoauth = new MojoAuth( "test-d00a21fd-d46e-46ed-b4ed-b80b20b4a4f6", config);
 
         mojoauth.signIn().then( response => {
             console.log("reached here")
